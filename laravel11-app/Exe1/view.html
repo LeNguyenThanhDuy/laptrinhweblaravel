@@ -1,0 +1,95 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Màn hình chi tiết</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f8f8f8;
+            text-align: center;
+            margin: 0;
+            padding: 0;
+        }
+        .container {
+            width: 320px;
+            margin: 50px auto;
+            background: white;
+            padding: 25px;
+            border-radius: 10px;
+            box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.1);
+        }
+        h2 {
+            margin-bottom: 20px;
+            font-size: 22px;
+        }
+        .info {
+            text-align: left;
+            font-size: 16px;
+            margin-bottom: 20px;
+        }
+        .info p {
+            margin: 10px 0;
+        }
+        .btn {
+            background-color: blue;
+            color: white;
+            padding: 12px;
+            border: none;
+            cursor: pointer;
+            width: 100%;
+            border-radius: 5px;
+            font-size: 16px;
+        }
+        .nav {
+            margin: 20px 0;
+            font-size: 16px;
+        }
+        label {
+            font-size: 16px;
+        }
+        input {
+            font-size: 16px;
+            padding: 8px;
+        }
+    </style>
+</head>
+<body>
+    <div class="nav">
+        <a href="#">Home</a> | <a href="#"><strong>Đăng xuất</strong></a>
+    </div>
+    
+    <div class="container" id="detailScreen">
+        <h2>Màn hình chi tiết</h2>
+        <div class="info">
+            <p><strong>Username:</strong> <span id="detailUsername">test1</span></p>
+            <p><strong>Email:</strong> <span id="detailEmail">test1@gmail.com</span></p>
+        </div>
+        <button class="btn" onclick="showEditScreen()">Chỉnh sửa</button>
+    </div>
+    
+    <div class="container" id="editScreen" style="display: none;">
+        <h2>Chỉnh sửa thông tin</h2>
+        <form id="editForm">
+            <label for="username">Username</label>
+            <input type="text" id="username" required>
+            <label for="email">Email</label>
+            <input type="email" id="email" required>
+            <br><br>
+            <button type="submit" class="btn">Lưu</button>
+        </form>
+    </div>
+    <p style="font-size: 14px;">Lập trình web @01/2024</p>
+
+    <script>
+        function showEditScreen() {
+            document.getElementById("detailScreen").style.display = "none";
+            document.getElementById("editScreen").style.display = "block";
+            
+            document.getElementById("username").value = document.getElementById("detailUsername").innerText;
+            document.getElementById("email").value = document.getElementById("detailEmail").innerText;
+        }
+    </script>
+</body>
+</html>

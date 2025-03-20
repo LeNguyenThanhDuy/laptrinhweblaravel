@@ -1,0 +1,91 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Danh sách User</title>
+    <style>
+        body { font-family: Arial, sans-serif; text-align: center; }
+        table { width: 60%; margin: auto; border-collapse: collapse; }
+        th, td { border: 1px solid black; padding: 8px; text-align: center; }
+        th { background-color: #f2f2f2; }
+        .pagination { margin: 20px; }
+        .pagination button { padding: 5px 10px; margin: 2px; cursor: pointer; }
+        .active { font-weight: bold; }
+    </style>
+</head>
+<body>
+    <h2>Danh sách user</h2>
+    <table>
+        <thead>
+            <tr>
+                <th>#</th>
+                <th>Username</th>
+                <th>Email</th>
+                <th>Thao tác</th>
+            </tr>
+        </thead>
+        <tbody id="userTable"></tbody>
+    </table>
+    <div class="pagination" id="pagination"></div>
+    
+    <script>
+        const users = [
+            { username: "UPVH", email: "ATJW@gmail.com" },
+            { username: "IFUK", email: "KULB@gmail.com" },
+            { username: "DZZQ", email: "ERNB@gmail.com" },
+            { username: "NJYY", email: "ROIF@gmail.com" },
+            { username: "YUMG", email: "KITN@gmail.com" },
+            { username: "WZSU", email: "CVTL@gmail.com" },
+            { username: "WXFQ", email: "MIUZ@gmail.com" },
+            { username: "XZOR", email: "YZLV@gmail.com" },
+            { username: "HGGO", email: "OYYX@gmail.com" },
+            { username: "PXZX", email: "YSML@gmail.com" }
+        ];
+
+        const rowsPerPage = 10;
+        let currentPage = 1;
+
+        function displayUsers(page) {
+            const start = (page - 1) * rowsPerPage;
+            const end = start + rowsPerPage;
+            const paginatedUsers = users.slice(start, end);
+            
+            document.getElementById("userTable").innerHTML = paginatedUsers.map((user, index) => `
+                <tr>
+                    <td>${start + index + 1}</td>
+                    <td>${user.username}</td>
+                    <td>${user.email}</td>
+                    <td>
+                        <a href="update.html">Edit</a> | 
+                        <a href="view.html">View</a> | 
+                        <a href="#">Delete</a>
+                    </td>
+                </tr>
+            `).join("");
+        }
+
+        function setupPagination() {
+            const totalPages = Math.ceil(users.length / rowsPerPage);
+            let buttons = `<button onclick="changePage(${currentPage - 1})" ${currentPage === 1 ? 'disabled' : ''}>Previous</button>`;
+            
+            for (let i = 1; i <= totalPages; i++) {
+                buttons += `<button onclick="changePage(${i})" class="${i === currentPage ? 'active' : ''}">${i}</button>`;
+            }
+            
+            buttons += `<button onclick="changePage(${currentPage + 1})" ${currentPage === totalPages ? 'disabled' : ''}>Next</button>`;
+            document.getElementById("pagination").innerHTML = buttons;
+        }
+
+        function changePage(page) {
+            if (page < 1 || page > Math.ceil(users.length / rowsPerPage)) return;
+            currentPage = page;
+            displayUsers(page);
+            setupPagination();
+        }
+
+        displayUsers(currentPage);
+        setupPagination();
+    </script>
+</body>
+</html>
